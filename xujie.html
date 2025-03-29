@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>序界缠论 - 量化交易会员体系</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        body {
+            color: #e0e3eb;
+            background-color: #151924;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* 背景光效 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(41, 98, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(245, 146, 84, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .light-effect {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(41, 98, 255, 0.03);
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: -1;
+            animation: float 15s ease-in-out infinite;
+        }
+        
+        .light-effect.orange {
+            background: rgba(245, 146, 84, 0.03);
+            width: 250px;
+            height: 250px;
+            animation-delay: 1s;
+            animation-duration: 12s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(50px, 40px);
+            }
+            50% {
+                transform: translate(0, 80px);
+            }
+            75% {
+                transform: translate(-50px, 40px);
+            }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+        
+        /* 闪烁的星星效果 */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 5s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.8; }
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            color: #fff;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 42px;
+            margin-bottom: 16px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #2962ff, #f59254);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(41, 98, 255, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(41, 98, 255, 0.5), 0 0 30px rgba(41, 98, 255, 0.3);
+            }
+        }
+        
+        h2 {
+            font-size: 32px;
+            margin: 50px 0 30px;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+        
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #2962ff, #f59254);
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            color: #a3a6af;
+            margin-bottom: 30px;
+        }
+        
+        .plans-container {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 70px;
+            perspective: 1000px;
+        }
+        
+        /* 计划卡片自适应高度 */
+        .plan-card {
+            background: rgba(30, 34, 45, 0.6);
+            border: 1px solid rgba(71, 78, 104, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            width: 280px;
+            padding: 32px;
+            transition: all 0.4s cubic-bezier(0.215, 0.610, 0.355, 1.000);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 800px; /* 最小高度 */
+        }
+        
+        .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            height: 100%;
+        }
+        
+        .card-features {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .community-support {
+            margin-top: auto;
+        }
+        
+        .plan-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 0%, rgba(41, 98, 255, 0.15), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .plan-card.orange::after {
+            background: radial-gradient(circle at 50% 0%, rgba(245, 146, 84, 0.15), transparent 60%);
+        }
+        
+        .plan-card:hover::after {
+            opacity: 1;
+        }
+        
+        .plan-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2962ff, #f59254);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-8px) rotateX(2deg) rotateY(-2deg);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25), 0 0 20px rgba(41, 98, 255, 0.1);
+            border-color: rgba(71, 78, 104, 0.5);
+        }
+        
+        .plan-card.special:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25), 0 0 20px rgba(245, 146, 84, 0.1);
+        }
+        
+        .plan-card:hover:before {
+            opacity: 1;
+        }
+        
+        .plan-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .plan-name::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #2962ff, #f59254);
+            transition: width 0.3s ease;
+        }
+        
+        .plan-card:hover .plan-name::after {
+            width: 100%;
+        }
+        
+        .plan-price {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2962ff;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .special .plan-price {
+            color: #f59254;  
+        }
+        
+        .original-price {
+            font-size: 18px;
+            color: #a3a6af;
+            text-decoration: line-through;
+            margin-bottom: 5px;
+        }
+        
+        .plan-billing {
+            color: #a3a6af;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .annual-save {
+            color: #26a69a;
+            font-size: 14px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .trial-button {
+            width: 100%;
+            height: 50px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(41, 98, 255, 0.3);
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 0;
+            line-height: 1;
+            text-decoration: none;
+            background: linear-gradient(45deg, #2962ff, #5d8ef7);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .special .trial-button {
+            background: linear-gradient(45deg, #f59254, #ffb74d);
+            box-shadow: 0 4px 12px rgba(245, 146, 84, 0.3);
+        }
+        
+        .trial-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            z-index: -1;
+            transition: transform 0.6s ease;
+            transform-origin: 0% 100%;
+        }
+        
+        .trial-button:hover::before {
+            transform: rotate(45deg) translate(0, -80%);
+        }
+        
+        .trial-button:hover {
+            box-shadow: 0 6px 15px rgba(41, 98, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .special .trial-button:hover {
+            box-shadow: 0 6px 15px rgba(245, 146, 84, 0.4);
+        }
+        
+        .features-list {
+            list-style-type: none;
+        }
+        
+        .features-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            color: #e0e3eb;
+        }
+        
+        .features-list li::before {
+            content: "✓";
+            color: #2962ff;
+            margin-right: 10px;
+            font-weight: bold;
+            background: rgba(41, 98, 255, 0.1);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .special .features-list li::before {
+            color: #f59254;
+            background: rgba(245, 146, 84, 0.1);
+        }
+        
+        .plan-card:hover .features-list li::before {
+            transform: scale(1.1);
+        }
+        
+        .category-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            margin-top: 20px;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: #2962ff;
+        }
+        
+        .special .category-title::after {
+            background: #f59254;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .feature-item {
+            background: rgba(30, 34, 45, 0.6);
+            border: 1px solid rgba(71, 78, 104, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(41, 98, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #2962ff;
+        }
+        
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .feature-desc {
+            color: #a3a6af;
+            font-size: 14px;
+        }
+        
+        .central-title {
+            background: transparent;
+            border: none;
+            padding: 25px 40px;
+            text-align: center;
+            margin: 0 auto 60px;
+            max-width: 800px;
+            position: relative;
+            box-shadow: none;
+        }
+        
+        .central-title h2 {
+            margin: 0;
+            font-size: 42px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .title-highlight {
+            font-size: 54px;
+            font-weight: 800;
+            background: linear-gradient(45deg, #2962ff, #f59254);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            display: block;
+            text-shadow: 0 0 15px rgba(41, 98, 255, 0.3);
+            position: relative;
+        }
+        
+        @keyframes textGlow {
+            0%, 100% {
+                text-shadow: 0 0 15px rgba(41, 98, 255, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 25px rgba(41, 98, 255, 0.5), 0 0 35px rgba(41, 98, 255, 0.3);
+            }
+        }
+        
+        .title-highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, #2962ff, #f59254);
+        }
+        
+        .title-sub {
+            color: #a3a6af;
+            font-size: 22px;
+            font-weight: 400;
+            display: block;
+            margin-top: 15px;
+            opacity: 0.8;
+        }
+        
+        .title-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(41, 98, 255, 0.15), transparent 70%);
+            filter: blur(25px);
+            z-index: -1;
+            opacity: 0.5;
+        }
+        
+        @keyframes glowPulse {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.1);
+            }
+        }
+        
+        .central-title:before, .central-title:after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(41, 98, 255, 0.15), transparent 70%);
+            z-index: -1;
+            border-radius: 50%;
+            filter: blur(20px);
+            animation: orbitGlow 10s linear infinite;
+        }
+        
+        .central-title:before {
+            top: -50px;
+            left: -50px;
+        }
+        
+        .central-title:after {
+            bottom: -50px;
+            right: -50px;
+            background: radial-gradient(circle, rgba(245, 146, 84, 0.15), transparent 70%);
+            animation-direction: reverse;
+            animation-duration: 15s;
+        }
+        
+        @keyframes orbitGlow {
+            0% {
+                transform: rotate(0deg) translateX(20px) rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg) translateX(20px) rotate(-360deg);
+            }
+        }
+        
+        .benefit-card {
+            background: rgba(30, 34, 45, 0.6);
+            border: 1px solid rgba(71, 78, 104, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            border-color: rgba(71, 78, 104, 0.5);
+        }
+        
+        .benefit-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(41, 98, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #2962ff;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .benefit-content h3 {
+            margin: 0 0 5px;
+            color: #fff;
+            font-size: 18px;
+        }
+        
+        .benefit-content p {
+            color: #a3a6af;
+            margin: 0;
+            font-size: 14px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding: 30px 20px;
+            background-color: rgba(19, 23, 34, 0.8);
+            color: #a3a6af;
+            border-top: 1px solid rgba(71, 78, 104, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-link {
+            color: #2962ff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .footer-link:hover {
+            color: #5d8ef7;
+        }
+        
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: currentColor;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+        
+        .footer-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        /* 增加一些响应式样式 */
+        @media (max-width: 768px) {
+            .plans-container {
+                gap: 30px;
+            }
+            
+            .plan-card {
+                width: 100%;
+                max-width: 320px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            h2 {
+                font-size: 28px;
+            }
+        }
+        
+        /* 添加交易所链接样式 */
+        .exchange-link {
+            color: #e0e3eb;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .exchange-link:hover {
+            color: #2962ff;
+            transform: translateX(5px);
+        }
+        
+        .special .exchange-link:hover {
+            color: #f59254;
+        }
+        
+        /* 卡片模块化样式 */
+        .card-module {
+            background: rgba(22, 26, 37, 0);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 价格模块固定高度 */
+        .price-module {
+            height: 220px;
+            min-height: 220px;
+        }
+        
+        /* 按钮模块固定高度 */
+        .button-module {
+            height: 70px;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        /* 特权模块自适应高度 */
+        .features-module {
+            min-height: 100px;
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        /* 社区支持模块自适应高度和底部对齐 */
+        .support-module {
+            min-height: 80px;
+            margin-top: auto; /* 底部对齐 */
+        }
+        
+        /* 更新按钮容器 */
+        .trial-button-container {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* 更新标题样式 */
+        .module-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 8px;
+            border-bottom: 2px solid;
+        }
+        
+        .plan-card .module-title {
+            border-color: #2962ff;
+        }
+        
+        .plan-card.special .module-title {
+            border-color: #f59254;
+        }
+    </style>
+</head>
+<body>
+    <!-- 光效元素 -->
+    <div class="light-effect" style="top: 20%; left: 10%;"></div>
+    <div class="light-effect orange" style="top: 60%; right: 15%;"></div>
+    <div class="light-effect" style="bottom: 10%; left: 30%;"></div>
+    
+    <!-- 星星效果 -->
+    <div class="stars"></div>
+    
+    <div class="container">
+        <!-- 中央标题 -->
+        <div class="central-title">
+            <div class="title-glow"></div>
+            <h2>
+                <span class="title-highlight">序界缠论</span>
+                <span class="title-sub">会员收费标准</span>
+            </h2>
+        </div>
+
+        <!-- 计划卡片 -->
+        <div class="plans-container">
+            <!-- 入门会员 - 蓝色 -->
+            <div class="plan-card">
+                <div class="card-content">
+                    <!-- 价格模块 -->
+                    <div class="card-module price-module">
+                        <div class="plan-name">入门会员</div>
+                        <div class="original-price">原价 120U</div>
+                        <div class="plan-price">88U</div>
+                        <div class="plan-billing">终身制</div>
+                    </div>
+                    
+                    <!-- 按钮模块 -->
+                    <div class="card-module button-module">
+                        <div class="trial-button-container">
+                            <a href="#" class="trial-button">立即开通</a>
+                        </div>
+                    </div>
+                    
+                    <!-- 特权模块 -->
+                    <div class="card-module features-module">
+                        <div class="module-title">核心权益</div>
+                        <ul class="features-list">
+                            <li>基础交易学习资料</li>
+                            <li>每周BTC、ETH盘解</li>
+                            <li>社区福利</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 社区支持模块 -->
+                    <div class="card-module support-module">
+                        <div class="module-title">社区支持</div>
+                        <ul class="features-list">
+                            <li>序界缠论社区</li>
+                            <li>狩鲸者公开群</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 季度VIP - 蓝色 -->
+            <div class="plan-card">
+                <div class="card-content">
+                    <!-- 价格模块 -->
+                    <div class="card-module price-module">
+                        <div class="plan-name">季度VIP</div>
+                        <div class="original-price">原价 368U/季</div>
+                        <div class="plan-price">218U</div>
+                        <div class="plan-billing">每季度</div>
+                    </div>
+                    
+                    <!-- 按钮模块 -->
+                    <div class="card-module button-module">
+                        <div class="trial-button-container">
+                            <a href="#" class="trial-button">立即开通</a>
+                        </div>
+                    </div>
+                    
+                    <!-- 特权模块 -->
+                    <div class="card-module features-module">
+                        <div class="module-title">核心权益</div>
+                        <ul class="features-list">
+                            <li>缠论入门学习资料</li>
+                            <li>热门币种盘解分析</li>
+                            <li>社区福利</li>
+                            <li>缠论核心指标</li>
+                            <li>信号预警</li>
+                            <li>私域带单</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 社区支持模块 -->
+                    <div class="card-module support-module">
+                        <div class="module-title">社区支持</div>
+                        <ul class="features-list">
+                            <li>序界缠论社区</li>
+                            <li>季度VIP群</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 年度VIP - 蓝色 -->
+            <div class="plan-card">
+                <div class="card-content">
+                    <!-- 价格模块 -->
+                    <div class="card-module price-module">
+                        <div class="plan-name">年度VIP</div>
+                        <div class="original-price">原价 1288U/年</div>
+                        <div class="plan-price">788U</div>
+                        <div class="plan-billing">每年</div>
+                    </div>
+                    
+                    <!-- 按钮模块 -->
+                    <div class="card-module button-module">
+                        <div class="trial-button-container">
+                            <a href="#" class="trial-button">立即开通</a>
+                        </div>
+                    </div>
+                    
+                    <!-- 特权模块 -->
+                    <div class="card-module features-module">
+                        <div class="module-title">核心权益</div>
+                        <ul class="features-list">
+                            <li>缠论入门学习资料</li>
+                            <li>热门币种盘解分析</li>
+                            <li>社区福利</li>
+                            <li>缠论核心指标</li>
+                            <li>信号预警</li>
+                            <li>私域带单</li>
+                            <li>支撑压力位</li>
+                            <li>自动斐波拉契回撤</li>
+                            <li>自动背驰MACD</li>
+                            <li>圈内资源分享</li>
+                            <li>其他技术指标</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 社区支持模块 -->
+                    <div class="card-module support-module">
+                        <div class="module-title">社区支持</div>
+                        <ul class="features-list">
+                            <li>序界缠论社区</li>
+                            <li>年度VIP群</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 专属SVIP - 橙色 -->
+            <div class="plan-card special">
+                <div class="card-content">
+                    <!-- 价格模块 -->
+                    <div class="card-module price-module">
+                        <div class="plan-name">专属SVIP</div>
+                        <div class="original-price">原价 1.5个ETH</div>
+                        <div class="plan-price">1个ETH</div>
+                        <div class="plan-billing">每年</div>
+                    </div>
+                    
+                    <!-- 按钮模块 -->
+                    <div class="card-module button-module">
+                        <div class="trial-button-container">
+                            <a href="https://t.me/+ueLyxDdjmQxkMjVl" target="_blank" class="trial-button">联系客服</a>
+                        </div>
+                    </div>
+                    
+                    <!-- 特权模块 -->
+                    <div class="card-module features-module">
+                        <div class="module-title">专属特权</div>
+                        <ul class="features-list">
+                            <li>一对一指导</li>
+                            <li>圈内资源共享</li>
+                            <li>全部指标权限</li>
+                            <li>量化脚本</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 社区支持模块 -->
+                    <div class="card-module support-module">
+                        <div class="module-title">社区支持</div>
+                        <ul class="features-list">
+                            <li>序界缠论社区</li>
+                            <li>专属SVIP群</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 返佣 - 橙色 -->
+            <div class="plan-card special">
+                <div class="card-content">
+                    <!-- 价格模块 -->
+                    <div class="card-module price-module">
+                        <div class="plan-name">返佣</div>
+                        <div class="plan-price">交易所注册邀请码绑定</div>
+                        <div class="plan-billing">每月检测</div>
+                    </div>
+                    
+                    <!-- 按钮模块 -->
+                    <div class="card-module button-module">
+                        <div class="trial-button-container">
+                            <a href="https://t.me/+ueLyxDdjmQxkMjVl" target="_blank" class="trial-button">联系客服</a>
+                        </div>
+                    </div>
+                    
+                    <!-- 特权模块 -->
+                    <div class="card-module features-module">
+                        <div class="module-title">合作交易所</div>
+                        <ul class="features-list">
+                            <li><a href="https://www.bitget.com/" target="_blank" class="exchange-link">bitget</a></li>
+                            <li><a href="https://www.okx.com/" target="_blank" class="exchange-link">欧易（OKX）</a></li>
+                            <li><a href="https://www.gate.io/" target="_blank" class="exchange-link">芝麻（gate.io）</a></li>
+                            <li><a href="https://www.deepcoin.com/" target="_blank" class="exchange-link">deepcoin</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 社区支持模块 -->
+                    <div class="card-module support-module">
+                        <div class="module-title">社区支持</div>
+                        <ul class="features-list">
+                            <li>序界缠论社区</li>
+                            <li>狩鲸者公开群</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 万U大户 - 橙色 -->
+            <div class="plan-card special">
+                <div class="card-content">
+                    <!-- 价格模块 -->
+                    <div class="card-module price-module">
+                        <div class="plan-name">万U大户</div>
+                        <div class="plan-price">交易所注册邀请码绑定</div>
+                        <div class="plan-billing">每月检测</div>
+                    </div>
+                    
+                    <!-- 按钮模块 -->
+                    <div class="card-module button-module">
+                        <div class="trial-button-container">
+                            <a href="https://t.me/+ueLyxDdjmQxkMjVl" target="_blank" class="trial-button">联系客服</a>
+                        </div>
+                    </div>
+                    
+                    <!-- 特权模块 -->
+                    <div class="card-module features-module">
+                        <div class="module-title">合作交易所</div>
+                        <ul class="features-list">
+                            <li><a href="https://www.bitget.com/" target="_blank" class="exchange-link">bitget</a></li>
+                            <li><a href="https://www.okx.com/" target="_blank" class="exchange-link">欧易（OKX）</a></li>
+                            <li><a href="https://www.gate.io/" target="_blank" class="exchange-link">芝麻（gate.io）</a></li>
+                            <li><a href="https://www.deepcoin.com/" target="_blank" class="exchange-link">deepcoin</a></li>
+                        </ul>
+                        
+                        <div class="module-title">专属服务</div>
+                        <ul class="features-list">
+                            <li>按资金规模定制</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 社区支持模块 -->
+                    <div class="card-module support-module">
+                        <div class="module-title">社区支持</div>
+                        <ul class="features-list">
+                            <li>序界缠论社区</li>
+                            <li>万U大户群</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2>技术指标对比</h2>
+        
+        <div class="feature-grid">
+            <div class="feature-item">
+                <div class="feature-icon">📈</div>
+                <div class="feature-title">缠论指标</div>
+                <div class="feature-desc">专业缠论指标与缠论技术</div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">核心指标</div>
+                <div class="feature-desc">包括均线趋势、核心指标等关键技术指标</div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">🔍</div>
+                <div class="feature-title">MACD背离</div>
+                <div class="feature-desc">专业MACD背离分析与信号预警</div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">📉</div>
+                <div class="feature-title">均线拐点</div>
+                <div class="feature-desc">准确把握市场转折点信号</div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">🔄</div>
+                <div class="feature-title">均线多空</div>
+                <div class="feature-desc">判断多空趋势的关键均线分析</div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">💰</div>
+                <div class="feature-title">金叉死叉</div>
+                <div class="feature-desc">专业买卖信号提示</div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">压力支撑</div>
+                <div class="feature-desc">关键价格区间分析</div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">💹</div>
+                <div class="feature-title">其他技术指标</div>
+                <div class="feature-desc">更多专业技术分析工具</div>
+            </div>
+        </div>
+        
+        <h2>序界缠论社区权益</h2>
+        
+        <div class="benefit-card">
+            <div class="benefit-icon">🔍</div>
+            <div class="benefit-content">
+                <h3>每周BTC、ETH趋势</h3>
+                <p>专业团队每周提供BTC、ETH趋势分析，助您把握市场方向</p>
+            </div>
+        </div>
+        
+        <div class="benefit-card">
+            <div class="benefit-icon">📚</div>
+            <div class="benefit-content">
+                <h3>基础交易教学</h3>
+                <p>系统学习交易技术，从入门到精通</p>
+            </div>
+        </div>
+        
+        <div class="benefit-card">
+            <div class="benefit-icon">🎁</div>
+            <div class="benefit-content">
+                <h3>社区福利</h3>
+                <p>专属社区活动与福利，共同成长</p>
+            </div>
+        </div>
+        
+        <div class="benefit-card">
+            <div class="benefit-icon">👨‍🏫</div>
+            <div class="benefit-content">
+                <h3>私域跟单</h3>
+                <p>私域跟单，解放双手</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>注：每个月会定期调整，若大交易所购买请联系客服</p>
+        <p>© 2023 会员收费标准参考 | <a href="https://t.me/+ueLyxDdjmQxkMjVl" target="_blank" class="footer-link">联系我们</a></p>
+    </footer>
+
+    <script>
+        // 创建星星
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            const starsCount = 100;
+            
+            for (let i = 0; i < starsCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // 随机位置
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // 随机大小
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // 随机动画延迟
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                star.style.animationDuration = `${5 + Math.random() * 5}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // 添加鼠标移动效果
+        function addMouseEffect() {
+            const cards = document.querySelectorAll('.plan-card');
+            
+            document.addEventListener('mousemove', (e) => {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const cardX = (rect.left + rect.width / 2) / window.innerWidth;
+                    const cardY = (rect.top + rect.height / 2) / window.innerHeight;
+                    
+                    const deltaX = (x - cardX) * 5;
+                    const deltaY = (y - cardY) * 5;
+                    
+                    const distance = Math.sqrt(Math.pow(x - cardX, 2) + Math.pow(y - cardY, 2));
+                    
+                    if (distance < 0.3) {
+                        card.style.transform = `translateY(-8px) rotateX(${-deltaY}deg) rotateY(${deltaX}deg)`;
+                    } else {
+                        card.style.transform = '';
+                    }
+                });
+            });
+        }
+        
+        // 页面加载完成后执行
+        window.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            addMouseEffect();
+        });
+    </script>
+</body>
+</html> 
