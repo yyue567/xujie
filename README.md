@@ -79,16 +79,6 @@
 4. 推送到分支 (`git push origin feature/amazing-feature`)
 5. 开启一个Pull Request
 
-## 版权和许可
-
-本项目采用MIT许可证 - 查看[LICENSE](LICENSE)文件了解详情
-
-## 联系方式
-
-如有任何问题或建议，请通过以下方式联系我们：
-
-- 项目Issues: [GitHub Issues](https://github.com/yourusername/beautiful-web-design-test/issues)
-- 电子邮件: your.email@example.com
 
 ---
 
