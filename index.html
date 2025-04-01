@@ -913,6 +913,13 @@
         .tg-link:hover .social-text {
             opacity: 1;
         }
+
+        /* 添加轮播图图片悬停效果 */
+        .carousel-item img {
+            transition: transform 0.3s ease;
+            position: relative; /* 确保 z-index 生效 */
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
@@ -1174,6 +1181,66 @@
             </div>
         </div>
 
+        <h2>收益展示</h2>
+        
+        <div style="background: rgba(30, 34, 45, 0.8); padding: 30px; border-radius: 12px; margin: 0 auto 40px; max-width: 1000px; text-align: center;">
+            <div class="carousel-container" style="position: relative; margin-bottom: 20px; height: 400px; overflow: hidden;">
+                <div class="carousel-wrapper" style="display: flex; position: relative; transition: transform 1s ease;">
+                    <div class="carousel-item" style="min-width: 100%; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <img src="image/1.jpg" alt="收益展示1" style="width: 800px; height: 400px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0);">
+                    </div>
+                    <div class="carousel-item" style="min-width: 100%; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <img src="image/2.jpg" alt="收益展示2" style="width: 800px; height: 400px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0);">
+                    </div>
+                    <div class="carousel-item" style="min-width: 100%; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <img src="image/3.png" alt="收益展示3" style="width: 800px; height: 400px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0);">
+                    </div>
+                    <div class="carousel-item" style="min-width: 100%; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <img src="image/4.jpg" alt="收益展示4" style="width: 800px; height: 400px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0);">
+                    </div>
+                    <div class="carousel-item" style="min-width: 100%; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <img src="image/5.jpg" alt="收益展示5" style="width: 800px; height: 400px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0);">
+                    </div>
+                    <div class="carousel-item" style="min-width: 100%; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <img src="image/6.jpg" alt="收益展示6" style="width: 800px; height: 400px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0);">
+                    </div>
+                    <div class="carousel-item" style="min-width: 100%; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <img src="image/7.jpg" alt="收益展示7" style="width: 800px; height: 400px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0);">
+                    </div>
+                    <div class="carousel-item" style="min-width: 100%; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <img src="image/8.jpg" alt="收益展示8" style="width: 800px; height: 400px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0);">
+                    </div>
+                    <div class="carousel-item" style="min-width: 100%; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <img src="image/9.jpg" alt="收益展示9" style="width: 800px; height: 400px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0);">
+                    </div>
+                    <div class="carousel-item" style="min-width: 100%; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <img src="image/10.jpg" alt="收益展示10" style="width: 800px; height: 400px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0);">
+                    </div>
+                    <div class="carousel-item" style="min-width: 100%; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <img src="image/11.jpg" alt="收益展示11" style="width: 800px; height: 400px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0);">
+                    </div>
+                </div>
+                <button class="carousel-button prev" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.5); border: none; color: white; padding: 15px 20px; border-radius: 50%; cursor: pointer; transition: all 0.3s ease; z-index: 10;">❮</button>
+                <button class="carousel-button next" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.5); border: none; color: white; padding: 15px 20px; border-radius: 50%; cursor: pointer; transition: all 0.3s ease; z-index: 10;">❯</button>
+                <div class="carousel-dots" style="display: flex; justify-content: center; gap: 8px; margin-top: 15px; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 10;">
+                    <span class="dot active" style="width: 10px; height: 10px; background: #2962ff; border-radius: 50%; cursor: pointer; transition: all 0.3s ease;"></span>
+                    <span class="dot" style="width: 10px; height: 10px; background: rgba(41, 98, 255, 0.3); border-radius: 50%; cursor: pointer; transition: all 0.3s ease;"></span>
+                    <span class="dot" style="width: 10px; height: 10px; background: rgba(41, 98, 255, 0.3); border-radius: 50%; cursor: pointer; transition: all 0.3s ease;"></span>
+                    <span class="dot" style="width: 10px; height: 10px; background: rgba(41, 98, 255, 0.3); border-radius: 50%; cursor: pointer; transition: all 0.3s ease;"></span>
+                    <span class="dot" style="width: 10px; height: 10px; background: rgba(41, 98, 255, 0.3); border-radius: 50%; cursor: pointer; transition: all 0.3s ease;"></span>
+                    <span class="dot" style="width: 10px; height: 10px; background: rgba(41, 98, 255, 0.3); border-radius: 50%; cursor: pointer; transition: all 0.3s ease;"></span>
+                    <span class="dot" style="width: 10px; height: 10px; background: rgba(41, 98, 255, 0.3); border-radius: 50%; cursor: pointer; transition: all 0.3s ease;"></span>
+                    <span class="dot" style="width: 10px; height: 10px; background: rgba(41, 98, 255, 0.3); border-radius: 50%; cursor: pointer; transition: all 0.3s ease;"></span>
+                    <span class="dot" style="width: 10px; height: 10px; background: rgba(41, 98, 255, 0.3); border-radius: 50%; cursor: pointer; transition: all 0.3s ease;"></span>
+                    <span class="dot" style="width: 10px; height: 10px; background: rgba(41, 98, 255, 0.3); border-radius: 50%; cursor: pointer; transition: all 0.3s ease;"></span>
+                    <span class="dot" style="width: 10px; height: 10px; background: rgba(41, 98, 255, 0.3); border-radius: 50%; cursor: pointer; transition: all 0.3s ease;"></span>
+                </div>
+            </div>
+            <p style="color: #e0e3eb; font-size: 16px; line-height: 1.8;">
+                以上为部分会员收益展示，仅供参考。实际收益因个人交易策略和市场情况而异。
+            </p>
+        </div>
+
         <h2>技术指标介绍</h2>
         
         <div class="feature-grid">
@@ -1269,6 +1336,12 @@
                 <h4>区块链技术专家</h4>
                 <p>深度掌握区块链底层技术与应用</p>
             </div>
+
+            <div class="team-member">
+                <div class="benefit-icon">🛡️</div>
+                <h4>合作币商</h4>
+                <p>保障出入金的安全</p>
+            </div>
         </div>
         
         <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px;">
@@ -1349,11 +1422,127 @@
                 });
             });
         }
+
+        // 轮播图功能
+        function initCarousel() {
+            const wrapper = document.querySelector('.carousel-wrapper');
+            const items = document.querySelectorAll('.carousel-item');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.querySelector('.carousel-button.prev');
+            const nextBtn = document.querySelector('.carousel-button.next');
+            const allImages = document.querySelectorAll('.carousel-item img'); // 获取所有轮播图片
+            
+            let currentIndex = 0;
+            const totalItems = items.length;
+            let isTransitioning = false; 
+            let currentPopup = null; // 用于存储弹出的图片元素
+            let autoPlayInterval = null; // 将定时器声明移到这里
+            
+            // 克隆第一个和最后一个元素
+            const firstClone = items[0].cloneNode(true);
+            const lastClone = items[items.length - 1].cloneNode(true);
+            
+            // 更新克隆元素的样式
+            firstClone.querySelector('img').style.objectFit = 'contain';
+            lastClone.querySelector('img').style.objectFit = 'contain';
+            
+            // 添加克隆的元素
+            wrapper.appendChild(firstClone);
+            wrapper.insertBefore(lastClone, items[0]);
+            
+            // 设置初始位置
+            wrapper.style.transform = `translateX(-100%)`;
+            
+            function updateCarousel() {
+                wrapper.style.transform = `translateX(-${(currentIndex + 1) * 100}%)`;
+                dots.forEach((dot, index) => {
+                    dot.style.background = index === currentIndex ? '#2962ff' : 'rgba(41, 98, 255, 0.3)';
+                });
+            }
+            
+            function nextSlide() {
+                if (isTransitioning) return; // 如果正在切换，则忽略
+                isTransitioning = true;
+                currentIndex++;
+                wrapper.style.transition = 'transform 1s ease'; // 确保动画开启
+                updateCarousel();
+            }
+            
+            function prevSlide() {
+                if (isTransitioning) return; // 如果正在切换，则忽略
+                isTransitioning = true;
+                currentIndex--;
+                wrapper.style.transition = 'transform 1s ease'; // 确保动画开启
+                updateCarousel();
+            }
+
+            // 监听过渡结束事件处理无缝循环
+            wrapper.addEventListener('transitionend', () => {
+                if (currentIndex === totalItems) {
+                    wrapper.style.transition = 'none'; // 关闭动画
+                    currentIndex = 0;
+                    wrapper.style.transform = `translateX(-100%)`; // 跳到真实的第一张
+                } else if (currentIndex === -1) {
+                    wrapper.style.transition = 'none'; // 关闭动画
+                    currentIndex = totalItems - 1;
+                    wrapper.style.transform = `translateX(-${(currentIndex + 1) * 100}%)`; // 跳到真实的最后一张
+                }
+                isTransitioning = false; // 允许下次切换
+            });
+            
+            // 启动自动轮播函数
+            function startAutoPlay() {
+                clearInterval(autoPlayInterval); // 先清除，防止重复
+                autoPlayInterval = setInterval(nextSlide, 5000);
+            }
+
+            // 停止自动轮播函数
+            function stopAutoPlay() {
+                clearInterval(autoPlayInterval);
+            }
+            
+            // 初始启动自动轮播
+            startAutoPlay();
+            
+            // 鼠标悬停时暂停自动轮播 (针对整个轮播区域)
+            const carouselContainer = document.querySelector('.carousel-container');
+            carouselContainer.addEventListener('mouseenter', stopAutoPlay);
+            carouselContainer.addEventListener('mouseleave', startAutoPlay);
+            
+            // 按钮点击事件
+            nextBtn.addEventListener('click', () => {
+                if (isTransitioning) return;
+                stopAutoPlay(); // 手动切换时暂停
+                nextSlide();
+                startAutoPlay(); // 操作后重新启动
+            });
+            prevBtn.addEventListener('click', () => {
+                if (isTransitioning) return;
+                stopAutoPlay(); // 手动切换时暂停
+                prevSlide();
+                startAutoPlay(); // 操作后重新启动
+            });
+            
+            // 点击指示点切换图片
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    if (isTransitioning || currentIndex === index) return; 
+                    isTransitioning = true;
+                    stopAutoPlay(); // 手动切换时暂停
+                    currentIndex = index;
+                    wrapper.style.transition = 'transform 1s ease'; 
+                    updateCarousel();
+                    startAutoPlay(); // 操作后重新启动
+                    // 依赖 transitionend 重置 isTransitioning
+                });
+            });
+        }
         
         // 页面加载完成后执行
         window.addEventListener('DOMContentLoaded', () => {
             createStars();
             addMouseEffect();
+            initCarousel();
         });
     </script>
 </body>
